@@ -1,0 +1,56 @@
+name: 'Bio to Markdown Table'
+description: 'Convert GitHub profile bio to markdown table format and replace placeholders'
+branding:
+  icon: 'edit'
+  color: 'blue'
+
+inputs:
+  user:
+    description: 'GitHub username to fetch bio for (defaults to GITHUB_ACTOR or REPOSITORY_OWNER)'
+    required: false
+  github_token:
+    description: 'GitHub token for API calls (optional, increases rate limits)'
+    required: false
+  delimiter:
+    description: 'Delimiter between entries in bio (whitespace around is ignored)'
+    required: false
+    default: '/'
+  files:
+    description: 'Files to update (comma-separated)'
+    required: false
+    default: 'README.md'
+  placeholder:
+    description: 'Placeholder to replace'
+    required: false
+    default: '{{github_profile_bio}}'
+
+outputs:
+  table:
+    description: 'Generated markdown table'
+    value: ${{ steps.run.outputs.table }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: 'latest'
+
+    - name: Install dependencies
+      shell: bash
+      run: bun install --frozen-lockfile
+      working-directory: ${{ github.action_path }}
+
+    - name: Run action (Bun)
+      id: run
+      shell: bash
+      env:
+        INPUT_USER: ${{ inputs.user }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_DELIMITER: ${{ inputs.delimiter }}
+        INPUT_FILES: ${{ inputs.files }}
+        INPUT_PLACEHOLDER: ${{ inputs.placeholder }}
+      run: bun ${GITHUB_ACTION_PATH}/src/index.ts
+
+  # outputs are defined at the top-level

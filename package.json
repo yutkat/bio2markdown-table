@@ -1,0 +1,29 @@
+{
+  "name": "bio2markdown-table",
+  "version": "1.0.0",
+  "description": "Convert GitHub profile bio to markdown table format",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "biome check src",
+    "format": "biome format --write src",
+    "check-format": "biome check src",
+    "pre-commit": "bun run format && bun run lint && bun run build",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
+    "@types/node": "^24.3.3",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "github-actions",
+    "markdown",
+    "profile",
+    "bio",
+    "typescript"
+  ]
+}
