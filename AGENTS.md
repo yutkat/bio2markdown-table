@@ -22,7 +22,7 @@
 - Keep modules small and pure; side effects limited to file I/O and `@actions/core` logging.
 
 ## Testing Guidelines
-- No test framework is bundled yet. For contributions adding logic, include lightweight unit tests (e.g., Vitest/Jest) under `tests/` or `src/**/*.spec.ts` and add a `bun run test` script.
+- No test framework is bundled yet. For contributions adding logic, include lightweight unit tests (e.g., Vitest/Jest) under `test/` or `src/**/*.spec.ts` and add a `bun run test` script.
 - Validate parsing with representative bios and edge cases (missing `:`, extra `/`, unicode keys).
 
 ## Commit & Pull Request Guidelines
